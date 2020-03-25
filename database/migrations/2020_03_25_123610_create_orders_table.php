@@ -17,10 +17,13 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->bigInteger('userId');
             $table->string('orderCode');
+            $table->string('address');
             $table->integer('status');
-            $table->integer('totalQuantity');
-            $table->bigInteger('totalPrice');
-            $table->timestamp('paymentDate');
+            $table->integer('totalQuantity')->default(0);
+            $table->bigInteger('totalPrice')->default(0);
+            $table->bigInteger('totalPayment')->default(0);
+            $table->bigInteger('totalDiscount')->default(0);
+            $table->timestamp('paymentDate')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

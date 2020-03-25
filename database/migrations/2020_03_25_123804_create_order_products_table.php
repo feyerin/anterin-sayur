@@ -20,6 +20,7 @@ class CreateOrderProductsTable extends Migration
             $table->integer('quantity');
             $table->bigInteger('price');
             $table->bigInteger('totalPrice');
+            $table->bigInteger('totalDiscountPrice')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
