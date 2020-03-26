@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->bigInteger('price')->default(0);
+            $table->bigInteger('quantity')->default(0);
             $table->bigInteger('discountPrice')->default(0);
             $table->bigInteger('totalDiscount')->default(0);
             $table->string('image')->nullable();
