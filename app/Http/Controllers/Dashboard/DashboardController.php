@@ -7,17 +7,17 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function indexProduct()
     {
         return view('app.product.index');
     }
 
-    public function add()
+    public function addProduct()
     {
         return view('app.product.add');
     }
 
-    public function read()
+    public function readProduct()
     {
         return view('app.product.detail');
     }
