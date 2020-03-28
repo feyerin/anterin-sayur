@@ -42,9 +42,8 @@ function getAPIProduct() {
 
 function displayProduct(data) {
     const product = data.data;
-    const divAnimate = "col-md-6 col-lg-3 ftco-animate";
-    const divProduct = "product";
-    const divTextCenter = "text py-3 pb-4 px-3 text-center";
+    const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
+
     let markup;
     let productId,
         productName,
@@ -61,8 +60,8 @@ function displayProduct(data) {
         productDiscount = product[index].discountPrice;
         productTotalDiscount = product[index].totalDiscount;
 
-        formattedPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(productPrice);
-        formattedTotalDiscount = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(productTotalDiscount);
+        formattedPrice = formatter.format(productPrice);
+        formattedTotalDiscount = formatter.format(productTotalDiscount);
 
         markup = `
                 <div class="col-md-6 col-lg-3">
