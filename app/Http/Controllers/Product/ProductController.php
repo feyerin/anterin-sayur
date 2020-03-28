@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at')->get();
 
         // return Response::make($products, 200);
         return $this->getResponse($products);
@@ -38,7 +38,10 @@ class ProductController extends Controller
         $product->quantity = $request->input('quantity');
         $product->discountPrice = $request->input('discountPrice');
         $product->totalDiscount = $request->input('totalDiscount');
-        // $product->image;
+
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        request()->image->move(public_path('images/product'), $imageName);
+        $product->image = 'images/product/' . $imageName;
 
         $product->save();
 
@@ -58,7 +61,10 @@ class ProductController extends Controller
         $product->quantity = $request->input('quantity');
         $product->discountPrice = $request->input('discountPrice');
         $product->totalDiscount = $request->input('totalDiscount');
-        // $product->image;
+
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        request()->image->move(public_path('images/product'), $imageName);
+        $product->image = 'images/product/' . $imageName;
 
         $product->save();
 

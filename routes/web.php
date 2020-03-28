@@ -16,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('logout', 'Auth\LoginController@logout');
+Route::get('/web', 'Customer\CustomerController@indexCustomer');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'Dashboard\DashboardController@indexProduct');
+    Route::get('/add', 'Dashboard\DashboardController@addProduct');
+    Route::get('/detail/{id}', 'Dashboard\DashboardController@readProduct');
+});
