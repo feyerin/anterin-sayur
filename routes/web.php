@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'Dashboard\DashboardController@index');
+    Route::get('/add', 'Dashboard\DashboardController@add');
+    Route::get('/detail/{id}', 'Dashboard\DashboardController@read');
+});
