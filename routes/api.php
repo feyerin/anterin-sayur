@@ -27,3 +27,22 @@ Route::post('/product/create', 'Product\ProductController@create');
 Route::post('/product/update', 'Product\ProductController@update');
 
 Route::post('/product/delete', 'Product\ProductController@delete');
+
+//-------------------------------------------------------------------------------
+
+Route::get('/order/check-session', 'Order\OrderController@checkSession');
+
+Route::get('/order', 'Order\OrderController@index');
+
+Route::get('/order/read/{id}', 'Order\OrderController@read');
+
+Route::get('/order/order-product/{id}', 'Order\OrderController@getOrderProduct');
+
+Route::get('/order/get-cart', 'Order\OrderController@getCart');
+
+Route::post('/order/update-cart', 'Order\OrderController@updateCart');
+
+Route::get('/order/checkout', 'Order\OrderController@checkout');
+
+Route::post('/order/set-user-data', 'Order\OrderController@setUserData');
+
