@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at')->get();
 
         // return Response::make($products, 200);
         return $this->getResponse($products);
