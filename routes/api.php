@@ -26,7 +26,7 @@ Route::post('/product/create', 'Product\ProductController@create');
 
 Route::post('/product/update', 'Product\ProductController@update');
 
-Route::delete('/product/delete', 'Product\ProductController@delete');
+Route::post('/product/delete', 'Product\ProductController@delete');
 
 //-------------------------------------------------------------------------------
 
@@ -45,3 +45,4 @@ Route::post('/order/update-cart', 'Order\OrderController@updateCart');
 Route::get('/order/checkout', 'Order\OrderController@checkout');
 
 Route::post('/order/set-user-data', 'Order\OrderController@setUserData');
+
