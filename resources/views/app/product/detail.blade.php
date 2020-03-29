@@ -22,7 +22,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Detail Product</li>
             </ol>
         </nav>
-        <a href="{{url('/dashboard')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-circle-left fa-sm text-white-50"></i> Back to Dashboard</a>
+        <a href="{{url('/dashboard/product')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-circle-left fa-sm text-white-50"></i> Back to Product</a>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -64,7 +64,7 @@ $( document ).ready(function() {
 function getAPIProduct() {
     const url = window.location.href;
     const urlParams = url.split("/");
-    const productId = urlParams[5];
+    const productId = urlParams[6];
 
     $.ajax({
         type: 'GET',

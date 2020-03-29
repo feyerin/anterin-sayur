@@ -12,6 +12,11 @@ class DashboardController extends Controller
         return view('app.product.index');
     }
 
+    public function indexOrder()
+    {
+        return view('app.order.index');
+    }
+
     public function addProduct()
     {
         return view('app.product.add');

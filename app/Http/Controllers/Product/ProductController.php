@@ -40,6 +40,7 @@ class ProductController extends Controller
         $product->totalDiscount = $request->input('totalDiscount');
 
         $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        // $imageName = time().'.jpg';
         request()->image->move(public_path('images/product'), $imageName);
         $product->image = 'images/product/' . $imageName;
 

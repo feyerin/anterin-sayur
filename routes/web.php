@@ -22,7 +22,8 @@ Route::get('/web', 'Customer\CustomerController@indexCustomer');
 Auth::routes();
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/dashboard', 'Dashboard\DashboardController@indexProduct');
-    Route::get('/add', 'Dashboard\DashboardController@addProduct');
-    Route::get('/detail/{id}', 'Dashboard\DashboardController@readProduct');
+    Route::get('/dashboard/product', 'Dashboard\DashboardController@indexProduct');
+    Route::get('/dashboard/order', 'Dashboard\DashboardController@indexOrder');
+    Route::get('/product/add', 'Dashboard\DashboardController@addProduct');
+    Route::get('/product/detail/{id}', 'Dashboard\DashboardController@readProduct');
 });

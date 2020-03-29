@@ -12,7 +12,7 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Products</h1>
-        <a href="{{url('/add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add Product</a>
+        <a href="{{url('product/add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add Product</a>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -75,7 +75,7 @@ function tableProduct() {
                     let dataTable = table.rows( { selected: true } ).data();
                     let productId = dataTable[0].id;
 
-                    window.location.href="detail/"+productId;
+                    window.location.href="{{url('product/detail')}}/"+productId;
                 }
             },
             {
