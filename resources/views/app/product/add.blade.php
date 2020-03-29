@@ -60,28 +60,37 @@
     });
 
     $('#add-product').on('click', function() {
-        const name = $('#name');
-        const quantity = $('#quantity');
-        const image = $('#image');
-        const price = $('#price');
-        const discountPrice = $('#discountPrice');
-        const totalDiscount = $('#totalDiscount');
-        var valBoundary = Math.random().toString().substr(2);
+        const name = $('#name').val();
+        const quantity = $('#quantity').val();
+        const image = $('#image')[0].files[0];
+        const price = $('#price').val();
+        const discountPrice = $('#discountPrice').val();
+        const totalDiscount = $('#totalDiscount').val();
 
-        let addedProduct = {
-            name: name.val(),
-            quantity: quantity.val(),
-            image: image.val(),
-            price: price.val(),
-            discountPrice: discountPrice.val(),
-            totalDiscount: totalDiscount.val(),
-        }
+        console.log(image);
+        var addedProduct = new FormData();
+        addedProduct.append('name',name);
+        addedProduct.append('quantity',quantity);
+        addedProduct.append('image',image);
+        addedProduct.append('price',price);
+        addedProduct.append('discountPrice',discountPrice);
+        addedProduct.append('totalDiscount',totalDiscount);
+
+        // let addedProduct = {
+        //     name: name.val(),
+        //     quantity: quantity.val(),
+        //     image: image,
+        //     price: price.val(),
+        //     discountPrice: discountPrice.val(),
+        //     totalDiscount: totalDiscount.val(),
+        // }
 
         $.ajax({
             type: 'POST',
-            contentType: 'multipart/form-data; charset=utf-8; boundary=' + valBoundary,
             url: 'http://localhost/anterin-sayur/api/product/create',
             data: addedProduct,
+            contentType: false,
+            processData: false,
             success: function (data) {
                 window.location.href="dashboard";
             },
