@@ -54,7 +54,7 @@ function displayProduct(data) {
         productTotalDiscount;
 
     for(index in product) {
-        if(index<9) {
+        if(index<8) {
             productId = product[index].id;
             productName = product[index].name;
             productStock = product[index].quantity;
@@ -69,7 +69,7 @@ function displayProduct(data) {
             markup = `
                     <div class="col-md-6 col-lg-3">
                         <div class="product">
-                            <a class="img-prod"><img class="img-fluid" src="public/` + productImage + `" alt="Colorlib Template">
+                            <a href="web/product/detail/` + productId + `" class="img-prod"><img class="img-fluid" src="public/` + productImage + `" alt="Colorlib Template">
                                 <div class="overlay"></div>
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center"><h3><a href="#">` + productName + `</a></h3>

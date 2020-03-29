@@ -23,6 +23,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/web', 'Customer\CustomerController@indexCustomer');
+    // Route::get('/web/product', 'Customer\CustomerController@indexCustomer'); LIST PRODUCT
+    Route::get('/web/product/detail/{id}', 'Customer\CustomerController@readProduct');
+    // Route::get('/web/cart', 'Customer\CustomerController@readProduct');
 
     Route::get('/dashboard/product', 'Dashboard\DashboardController@indexProduct');
     Route::get('/dashboard/order', 'Dashboard\DashboardController@indexOrder');

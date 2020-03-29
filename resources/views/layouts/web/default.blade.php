@@ -46,7 +46,6 @@
     <script src="{{asset('public/templates/web/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('public/templates/web/js/scrollax.min.js')}}"></script>
     <script src="{{asset('public/templates/web/js/main.js')}}"></script>
-    <script src="{{asset('public/templates/web/js/pagination.js')}}"></script>
     
     @yield('scripts')
 </body>

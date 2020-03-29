@@ -69,8 +69,10 @@ class OrderController extends Controller
     public function addToCart(Request $request)
     {
         //get userId from session
-        $user = Auth::user();
-        $userId = $user->id;
+        // $user = Auth::user();
+        // $userId = $user->id;
+
+        $userId = Auth::id();
 
         $orderProductId = null;
         $order = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();

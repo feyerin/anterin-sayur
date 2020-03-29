@@ -67,7 +67,6 @@
         const discountPrice = $('#discountPrice').val();
         const totalDiscount = $('#totalDiscount').val();
 
-        console.log(image);
         var addedProduct = new FormData();
         addedProduct.append('name',name);
         addedProduct.append('quantity',quantity);
@@ -92,7 +91,8 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                window.location.href="dashboard";
+                alert("Success");
+                // window.location.href="dashboard";
             },
             timeout: 300000,
             error: function (e) {

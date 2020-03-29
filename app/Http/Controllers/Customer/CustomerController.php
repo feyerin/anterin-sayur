@@ -11,4 +11,9 @@ class CustomerController extends Controller
     {
         return view("app.customer.index");
     }
+
+    public function readProduct()
+    {
+        return view("app.customer.detail");
+    }
 }
