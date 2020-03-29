@@ -21,13 +21,13 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{url('dashboard/product')}}">
             <i class="fas fa-fw fa-cubes"></i>
             <span>Products</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link">
+        <a class="nav-link" href="{{url('dashboard/order')}}">
             <i class="fas fa-fw fa-file"></i>
             <span>Order</span>
         </a>

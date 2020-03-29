@@ -17,11 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('logout', 'Auth\LoginController@logout');
-Route::get('/web', 'Customer\CustomerController@indexCustomer');
 
 Auth::routes();
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/web', 'Customer\CustomerController@indexCustomer');
+
     Route::get('/dashboard/product', 'Dashboard\DashboardController@indexProduct');
     Route::get('/dashboard/order', 'Dashboard\DashboardController@indexOrder');
     Route::get('/product/add', 'Dashboard\DashboardController@addProduct');
