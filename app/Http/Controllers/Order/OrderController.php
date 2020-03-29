@@ -19,9 +19,9 @@ class OrderController extends Controller
 
     public function getOrderByUser()
     {
-        //get userId from session
         $user = Auth::user();
         $userId = $user->id;
+        // $userId = Auth::id();
 
         $orders = Order::where('userId', $userId)->get();
         
@@ -54,9 +54,9 @@ class OrderController extends Controller
 
     public function getCart()
     {
-        //get userId from session
         $user = Auth::user();
         $userId = $user->id;
+        // $userId = Auth::id();
 
         $order['order'] = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
         $order['orderProduct'] = OrderProduct::where('orderId', $order['order']->id)->get();
@@ -68,11 +68,9 @@ class OrderController extends Controller
 
     public function addToCart(Request $request)
     {
-        //get userId from session
-        // $user = Auth::user();
-        // $userId = $user->id;
-
-        $userId = Auth::id();
+        $user = Auth::user();
+        $userId = $user->id;
+        // $userId = Auth::id();
 
         $orderProductId = null;
         $order = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
@@ -88,13 +86,15 @@ class OrderController extends Controller
         }
 
         $quantity = $request->input('quantity');
-        $orderProduct = OrderProduct::where('orderId', $order['order']->id)->where('productId', $productId)->get();
+        $orderProduct = OrderProduct::where('orderId', $order->id)->where('productId', $request->input('productId'))->first();
         if (!empty($orderProduct)) {
             $orderProductId = $orderProduct->id;
             $quantity = $quantity + $orderProduct->quantity;
         }
 
-        $order->updateCart($userId, $request->input('productId'), $quantity, $orderProductId);
+        if(!$order->updateCart($userId, $request->input('productId'), $quantity, $orderProductId)) {
+            return $this->getResponse(404, "productId : " . $request->input('productId'));
+        }
 
         return $this->getResponse($order, [
             'userId' => $userId
@@ -103,9 +103,9 @@ class OrderController extends Controller
 
     public function updateCart(Request $request)
     {
-        //get userId from session
         $user = Auth::user();
         $userId = $user->id;
+        // $userId = Auth::id();
 
         $order = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
 
@@ -120,9 +120,9 @@ class OrderController extends Controller
 
     public function checkout()
     {
-        //get userId from session
         $user = Auth::user();
         $userId = $user->id;
+        // $userId = Auth::id();
 
         $checkout = Order::checkout($userId);
 
@@ -133,9 +133,9 @@ class OrderController extends Controller
 
     public function setUserData(Request $request)
     {
-        //get userId from session
         $user = Auth::user();
         $userId = $user->id;
+        // $userId = Auth::id();
 
         $order = Order::where('userId', $userId)->where('id', $request->input('orderId'))->first();
         
@@ -157,7 +157,6 @@ class OrderController extends Controller
 
     public function setPaidOrder(Request $request)
     {
-
         $order = Order::find($request->input('orderId'));
         
         $order->status = Order::STATUS_PAID;
@@ -169,7 +168,11 @@ class OrderController extends Controller
         );
     }
 
-    public function checkSession() {
+    public function checkSession(Request $request) {
+        if (Auth::check()) {
+            return $this->getResponse(Auth::user());
+            // The user is logged in...
+        }
         return $this->getResponse(Auth::user());
     }
 }

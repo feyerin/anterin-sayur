@@ -20,17 +20,23 @@ class Order extends Model
     {
         $product = Product::find($productId);
 
+        if(empty($product)) {
+            return false;
+        } 
+
         $orderProduct = OrderProduct::updateOrderProduct($this->id, $product, $quantity, $orderProductId);
 
         $this->calculateTotalPrice();
+
+        return true;
     }
 
     public function generateOrderCode()
     {
         $prefix = "#AS-" . rand(1000, 9999);
-        $postfix = strtotime(date());
+        $postfix = strtotime(date('d-m-Y H:i:s'));
 
-        return $prefix . $postfix;
+        return "$prefix$postfix";
     }
 
     public function calculateTotalPrice()
