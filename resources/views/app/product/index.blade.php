@@ -1,46 +1,46 @@
-@extends('layouts.default')
+@extends('layouts.dashboard.default')
 @section('title', 'Product')
 
 @section('styles')
 <link href="{{asset('public/templates/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-<style>
-.dataTables_empty, .dataTables_info {
-    display: none !important;
-}
-</style>
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.bootstrap.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Products</h1>
-        <a href="{{url('/add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add Product</a>
+        <a href="{{url('product/add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add Product</a>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Products Tables</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="table-product" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Product ID</th>
                             <th>Product Name</th>
                             <th>Stock</th>
                             <th>Price</th>
                             <th>Discount Price</th>
                             <th>Total Discount</th>
-                            <th>Action</th>
+                            {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Product ID</th>
                             <th>Product Name</th>
                             <th>Stock</th>
                             <th>Price</th>
                             <th>Discount Price</th>
                             <th>Total Discount</th>
-                            <th>Action</th>
+                            {{-- <th>Action</th> --}}
                         </tr>
                     </tfoot>
                     <tbody id="table-product">
@@ -55,20 +55,69 @@
 @section('scripts')
 <script src="{{asset('public/templates/vendor/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('public/templates/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('public/templates/js/demo/datatables-demo.js')}}"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap.min.js"></script>
 
 <script>
 $( document ).ready(function() {
-    getAPIProduct();
+    tableProduct();
 });
 
-function getAPIProduct() {
+function tableProduct() {
+    var table = $('#table-product').DataTable({
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                text: 'Detail',
+                className: 'btn btn-warning',
+                action: function () {
+                    let dataTable = table.rows( { selected: true } ).data();
+                    let productId = dataTable[0].id;
+
+                    window.location.href="{{url('product/detail')}}/"+productId;
+                }
+            },
+            {
+                text: 'Delete',
+                className: 'btn btn-danger',
+                action: function () {
+                    let dataTable = table.rows( { selected: true } ).data();
+                    let productId = dataTable[0].id;
+
+                    deleteProduct(productId);
+                }
+            }
+        ],
+        "select": {
+            style: 'single'
+        },
+        "ajax": {
+            "url": 'http://localhost/anterin-sayur/api/product',
+            "type": 'GET'
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "name" },
+            { "data": "quantity" },
+            { "data": "price", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ) },
+            { "data": "discountPrice", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' )  },
+            { "data": "totalDiscount", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' )  }
+        ],
+    });
+}
+
+function deleteProduct(data) {
+    let deletedProduct = {
+        productId: data,
+    }
+
     $.ajax({
-        type: 'GET',
-        url: 'http://localhost/anterin-sayur/api/product',
-        beforeSend: function () {},
+        type: 'POST',
+        data: deletedProduct,
+        url: 'http://localhost/anterin-sayur/api/product/delete',
         success: function (data) {
-            tableProduct(data);
+            location.reload();
         },
         timeout: 300000,
         error: function (e) {
@@ -76,44 +125,5 @@ function getAPIProduct() {
         }
     });
 }
-
-function tableProduct(data) {
-    const product = data.data;
-    let markup;
-
-    for(index in product) {
-        markup = '<tr><td>'+ product[index].name +'</td><td>'+ product[index].quantity +'</td>'+
-        '<td>'+ product[index].price +'<td>'+ product[index].discountPrice +'<td>'+ product[index].totalDiscount +'</td>'+
-        '<td><button class="btn btn-warning btn-sm" onclick="detailProduct('+ product[index].id +')">Detail</button>&nbsp;'+
-        '<button class="btn btn-danger btn-sm" onclick="deleteProduct('+ product[index].id +')">Delete</button></td></tr>';
-        $('#table-product').append(markup);
-    }
-}
-
-function detailProduct(id) {
-    const productId = id;
-    const url = "detail/"
-    var win = window.open(url + productId, '_blank');
-    win.focus();
-}
-
-// function deleteProduct(data) {
-//     console.log(data);
-//     const productId = data;
-//     $.ajax({
-//         type: 'DELETE',
-//         contentType: "application/json",
-//         data: {productId: productId},
-//         url: 'http://localhost/anterin-sayur/api/product/delete',
-//         beforeSend: function () {},
-//         success: function (data) {
-//             // location.reload();
-//         },
-//         timeout: 300000,
-//         error: function (e) {
-//             console.log(e);
-//         }
-//     });
-// }
 </script>
 @endsection

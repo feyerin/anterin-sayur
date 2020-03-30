@@ -41,6 +41,7 @@ class ProductController extends Controller
 
         if(!empty(request()->image)) {
             $imageName = time().'.'.request()->image->getClientOriginalExtension();
+         // $imageName = time().'.jpg';
             request()->image->move(public_path('images/product'), $imageName);
             $product->image = 'images/product/' . $imageName;
         }

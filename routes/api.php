@@ -30,19 +30,36 @@ Route::post('/product/delete', 'Product\ProductController@delete');
 
 //-------------------------------------------------------------------------------
 
-Route::get('/order/check-session', 'Order\OrderController@checkSession');
+// Route::get('/order/check-session', 'Order\OrderController@checkSession');
 
 Route::get('/order', 'Order\OrderController@index');
+
+// Route::get('/order-by-user', 'Order\OrderController@getOrderByUser');
 
 Route::get('/order/read/{id}', 'Order\OrderController@read');
 
 Route::get('/order/order-product/{id}', 'Order\OrderController@getOrderProduct');
 
-Route::get('/order/get-cart', 'Order\OrderController@getCart');
+// Route::get('/order/get-cart', 'Order\OrderController@getCart');
 
-Route::post('/order/update-cart', 'Order\OrderController@updateCart');
+// Route::post('/order/add-to-cart', 'Order\OrderController@addToCart');
 
-Route::get('/order/checkout', 'Order\OrderController@checkout');
+// Route::post('/order/update-cart', 'Order\OrderController@updateCart');
 
-Route::post('/order/set-user-data', 'Order\OrderController@setUserData');
+// Route::get('/order/checkout', 'Order\OrderController@checkout');
 
+// Route::post('/order/set-user-data', 'Order\OrderController@setUserData');
+
+Route::post('/order/set-paid-order', 'Order\OrderController@setPaidOrder');
+
+//-------------------------------------------------------------------------------
+
+Route::get('/banner', 'Banner\BannerController@index');
+
+Route::get('/banner/read/{id}', 'Banner\BannerController@read');
+
+Route::post('/banner/create', 'Banner\BannerController@create');
+
+Route::post('/banner/update', 'Banner\BannerController@update');
+
+Route::post('/banner/delete', 'Banner\BannerController@delete');

@@ -1,5 +1,5 @@
-@extends('layouts.default')
-@section('title', 'Add Product')
+@extends('layouts.dashboard.default')
+@section('title', 'Detail Product')
 
 @section('styles')
 <style>
@@ -18,11 +18,11 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Product</li>
+                <li class="breadcrumb-item"><a href="{{url('/dashboard/product')}}">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail Product</li>
             </ol>
         </nav>
-        <a href="{{url('/dashboard')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-circle-left fa-sm text-white-50"></i> Back to Dashboard</a>
+        <a href="{{url('/dashboard/product')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-circle-left fa-sm text-white-50"></i> Back to Product</a>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -34,19 +34,24 @@
             <div class="row">
                     <div class="col-lg-6 col-md-6">
                     <label for="id">Product ID:</label><br>
-                    <input type="text" id="id" name="id" disabled><br>
+                    <input type="text" id="id" name="id" class="form-control" disabled><br>
                     <label for="name">Product name:</label><br>
-                    <input type="text" id="name" name="name" disabled><br>
+                    <input type="text" id="name" name="name" class="form-control" disabled><br>
                     <label for="quantity">Product stock:</label><br>
-                    <input type="text" id="quantity" name="quantity" disabled><br>
+                    <input type="text" id="quantity" name="quantity" class="form-control" disabled><br>
+                    <label>Product image:</label><br>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" disabled>
+                        <label class="custom-file-label" for="image">Choose file</label>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <label for="price">Product Price:</label><br>
-                    <input type="text" id="price" name="price" disabled><br>
+                    <input type="text" id="price" name="price" class="form-control" onkeyup="calc();" disabled><br>
                     <label for="discountPrice">Discount Price:</label><br>
-                    <input type="text" id="discountPrice" name="discountPrice" disabled><br>
+                    <input type="text" id="discountPrice" name="discountPrice" class="form-control" onkeyup="calc();" disabled><br>
                     <label for="totalDiscount">Total Discount:</label><br>
-                    <input type="text" id="totalDiscount" name="totalDiscount" disabled><br><br>
+                    <input type="text" id="totalDiscount" name="totalDiscount" class="form-control" disabled><br><br>
                     
                 </div>
             </div>
@@ -64,15 +69,17 @@ $( document ).ready(function() {
 function getAPIProduct() {
     const url = window.location.href;
     const urlParams = url.split("/");
-    const productId = urlParams[5];
+    const productId = urlParams[6];
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost/anterin-sayur/api/product/read' + productId,
+        url: 'http://localhost/anterin-sayur/api/product/read/' + productId,
         success: function (data) {
             const productData = data.data;
+            console.log(productData);
             $('#id').val(productData.id);
             $('#name').val(productData.name);
+            $('#image').val(productData.image);
             $('#price').val(productData.price);
             $('#quantity').val(productData.quantity);
             $('#discountPrice').val(productData.discountPrice);
@@ -83,6 +90,15 @@ function getAPIProduct() {
             console.log(e);
         }
     });
+}
+
+function calc() {
+    var priceVal = $('#price').val();
+    var discountVal = $('#discountPrice').val();
+    var totalDiscVal = parseInt(priceVal) - parseInt(discountVal);
+    if (!isNaN(totalDiscVal)) {
+        $('#totalDiscount').val(totalDiscVal)
+    }
 }
 </script>
 
@@ -97,7 +113,6 @@ function getAPIProduct() {
         $('#quantity').prop('disabled', false);
         $('#price').prop('disabled', false);
         $('#discountPrice').prop('disabled', false);
-        $('#totalDiscount').prop('disabled', false);
     });
 
     $('#save-product').on('click', function() {

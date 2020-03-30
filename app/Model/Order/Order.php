@@ -11,37 +11,32 @@ class Order extends Model
 {
     use SoftDeletes;
     
-    public static function updateCart($userId, $productId, $quantity, $orderProductId = null)
+    const STATUS_CART = 0;
+    const STATUS_CHECKOUT = 1;
+    const STATUS_PENDING = 2;
+    const STATUS_PAID = 3;
+
+    public function updateCart($userId, $productId, $quantity, $orderProductId = null)
     {
         $product = Product::find($productId);
 
         if(empty($product)) {
-            //throw error empty product
-        }
+            return false;
+        } 
 
-        $order = self::where('userId', $userId)->where('status', 0)->first();
+        $orderProduct = OrderProduct::updateOrderProduct($this->id, $product, $quantity, $orderProductId);
 
-        if(empty($order)) {
-            $order = new self;
+        $this->calculateTotalPrice();
 
-            $order->userId = $userId;
-            $order->orderCode = $order->generateOrderCode();
-            $order->status = 0;
-
-            $order->save();
-        }
-
-        $orderProduct = OrderProduct::updateOrderProduct($order->id, $product, $quantity, $orderProductId);
-
-        $order->calculateTotalPrice();
+        return true;
     }
 
     public function generateOrderCode()
     {
         $prefix = "#AS-" . rand(1000, 9999);
-        $postfix = strtotime(date());
+        $postfix = strtotime(date('d-m-Y H:i:s'));
 
-        return $prefix . $postfix;
+        return "$prefix$postfix";
     }
 
     public function calculateTotalPrice()
@@ -66,11 +61,11 @@ class Order extends Model
 
     public static function checkout($userId)
     {
-        $order = self::where('userId', $userId)->where('status', 0)->first();
+        $order = self::where('userId', $userId)->where('status', self::STATUS_CART)->first();
 
         $saveToCheckout = $order->checkCheckout();
         if($saveToCheckout){
-            $order->status = 1;
+            $order->status = self::STATUS_CHECKOUT;
             $order->save();
         }
 

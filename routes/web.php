@@ -16,12 +16,41 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
 Route::group(['middleware'=>'auth'], function(){
+    //-----------------
+    Route::get('/api/order/check-session', 'Order\OrderController@checkSession');
+
+    Route::get('/api/order/get-by-user', 'Order\OrderController@getOrderByUser');
+    
+    Route::get('/api/order/get-cart', 'Order\OrderController@getCart');
+
+    Route::post('/api/order/add-to-cart', 'Order\OrderController@addToCart');
+    
+    Route::post('/api/order/update-cart', 'Order\OrderController@updateCart');
+    
+    Route::get('/api/order/checkout', 'Order\OrderController@checkout');
+
+    Route::post('/api/order/set-user-data', 'Order\OrderController@setUserData');
+    //-----------------
+
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/dashboard', 'Dashboard\DashboardController@index');
-    Route::get('/add', 'Dashboard\DashboardController@add');
-    Route::get('/detail/{id}', 'Dashboard\DashboardController@read');
+
+    Route::get('/web', 'Customer\CustomerController@indexCustomer');
+    // Route::get('/web/product', 'Customer\CustomerController@indexCustomer'); LIST PRODUCT
+    Route::get('/web/product/detail/{id}', 'Customer\CustomerController@readProduct');
+    // Route::get('/web/cart', 'Customer\CustomerController@readProduct');
+
+    Route::get('/dashboard/product', 'Dashboard\DashboardController@indexProduct');
+    Route::get('/dashboard/order', 'Dashboard\DashboardController@indexOrder');
+    Route::get('/dashboard/banner', 'Dashboard\DashboardController@indexBanner');
+    
+    Route::get('/product/add', 'Dashboard\DashboardController@addProduct');
+    Route::get('/product/detail/{id}', 'Dashboard\DashboardController@readProduct');
+
+    Route::get('/banner/add', 'Dashboard\DashboardController@addBanner');
+    Route::get('/banner/detail/{id}', 'Dashboard\DashboardController@readBanner');
 });

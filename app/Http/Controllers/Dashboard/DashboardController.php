@@ -7,18 +7,38 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function indexProduct()
     {
         return view('app.product.index');
     }
 
-    public function add()
+    public function indexOrder()
+    {
+        return view('app.order.index');
+    }
+
+    public function indexBanner()
+    {
+        return view('app.banner.index');
+    }
+
+    public function addProduct()
     {
         return view('app.product.add');
     }
 
-    public function read()
+    public function readProduct()
     {
         return view('app.product.detail');
+    }
+
+    public function addBanner()
+    {
+        return view('app.banner.add');
+    }
+
+    public function readBanner()
+    {
+        return view('app.banner.detail');
     }
 }

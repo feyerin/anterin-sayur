@@ -11,10 +11,10 @@
 </head>
 <body>
     <div id="wrapper">
-        @include('layouts.sidebar')
+        @include('layouts.dashboard.sidebar')
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                @include('layouts.header')
+                @include('layouts.dashboard.header')
                 @yield('content')
             </div>
         </div>
