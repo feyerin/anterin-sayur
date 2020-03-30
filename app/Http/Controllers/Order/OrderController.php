@@ -35,7 +35,7 @@ class OrderController extends Controller
         $orderProduct = OrderProduct::where('orderId', $id)->get();
         $orderProductArray = $orderProduct->toArray();
 
-        if (empty($order) || $order == nul) {
+        if (empty($order['order']) || $order['order'] == nul) {
             return $this->throwError(404);
         }
 
@@ -77,7 +77,7 @@ class OrderController extends Controller
         $userId = $user->id;
 
         $order['order'] = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
-        if (empty($order) || $order == null) {
+        if (empty($order['order']) || $order['order'] == null) {
             return $this->throwError(404);
         }
         $orderProduct = OrderProduct::where('orderId', $order['order']->id)->get();
