@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Order\Order;
 use App\Model\OrderProduct\OrderProduct;
+use App\Model\Product\Product;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -30,13 +31,25 @@ class OrderController extends Controller
 
     public function read($id)
     {
-        $order = Order::find($id);
+        $order['order'] = Order::find($id);
+        $orderProduct = OrderProduct::where('orderId', $id)->get();
+        $orderProductArray = $orderProduct->toArray();
 
         if (empty($order)) {
             return $this->throwError(404);
         }
 
-        return $this->getResponse($order);
+        $order['orderProduct'] = array_map(function ($row) {
+            $product = Product::find($row['productId']);
+
+            $result = $row;
+            $result['productName'] = $product->name;
+            $result['productImage'] = $product->image;
+
+            return $result;
+        }, $orderProductArray);
+
+        return $this->getResponse($order, $orderProduct);
     }
 
     public function getOrderProduct($id)
@@ -59,7 +72,18 @@ class OrderController extends Controller
         $userId = $user->id;
 
         $order['order'] = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
-        $order['orderProduct'] = OrderProduct::where('orderId', $order['order']->id)->get();
+        $orderProduct = OrderProduct::where('orderId', $order['order']->id)->get();
+        $orderProductArray = $orderProduct->toArray();
+
+        $order['orderProduct'] = array_map(function ($row) {
+            $product = Product::find($row['productId']);
+
+            $result = $row;
+            $result['productName'] = $product->name;
+            $result['productImage'] = $product->image;
+
+            return $result;
+        }, $orderProductArray);
 
         return $this->getResponse($order, [
             'userId' => $userId
