@@ -159,6 +159,7 @@ class OrderController extends Controller
         $order = Order::find($request->input('orderId'));
         
         $order->status = Order::STATUS_PAID;
+        $order->paymentDate = date("Y-m-d H:i:s");
 
         $order->save();
 
