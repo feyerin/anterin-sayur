@@ -184,9 +184,9 @@ class OrderController extends Controller
 
         $order->save();
 
-        $user = User::find($order->userId);
+        $userMail = User::find($order->userId);
 
-        $mail = Mailer::sendEmail($order, $user->email);
+        $mail = Mailer::sendEmail($order, $userMail->email);
 
         return $this->getResponse($order, [
             'userId' => $userId,
@@ -213,6 +213,6 @@ class OrderController extends Controller
     }
 
     public function checkSession(Request $request) {
-        return $this->getResponse(Mailer::sendEmail());
+        return $this->getResponse(Auth::user());
     }
 }
