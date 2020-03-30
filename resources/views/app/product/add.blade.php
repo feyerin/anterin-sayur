@@ -14,7 +14,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/dashboard/product')}}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Product</li>
             </ol>
         </nav>
@@ -32,7 +32,7 @@
                     <input type="text" id="name" name="name" class="form-control"><br>
                     <label for="quantity">Product stock:</label><br>
                     <input type="text" id="quantity" name="quantity" class="form-control"><br>
-                    <label for="quantity">Product image:</label><br>
+                    <label>Product image:</label><br>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image">
                         <label class="custom-file-label" for="image">Choose file</label>
@@ -91,8 +91,8 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                alert("Success");
-                // window.location.href="dashboard";
+                // alert("Success");
+                window.location.href="http://localhost/anterin-sayur/dashboard/product";
             },
             timeout: 300000,
             error: function (e) {

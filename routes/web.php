@@ -46,6 +46,11 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/dashboard/product', 'Dashboard\DashboardController@indexProduct');
     Route::get('/dashboard/order', 'Dashboard\DashboardController@indexOrder');
+    Route::get('/dashboard/banner', 'Dashboard\DashboardController@indexBanner');
+    
     Route::get('/product/add', 'Dashboard\DashboardController@addProduct');
     Route::get('/product/detail/{id}', 'Dashboard\DashboardController@readProduct');
+
+    Route::get('/banner/add', 'Dashboard\DashboardController@addBanner');
+    Route::get('/banner/detail/{id}', 'Dashboard\DashboardController@readBanner');
 });

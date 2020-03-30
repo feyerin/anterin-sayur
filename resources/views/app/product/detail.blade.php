@@ -18,7 +18,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/dashboard/product')}}">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detail Product</li>
             </ol>
         </nav>
@@ -39,6 +39,11 @@
                     <input type="text" id="name" name="name" class="form-control" disabled><br>
                     <label for="quantity">Product stock:</label><br>
                     <input type="text" id="quantity" name="quantity" class="form-control" disabled><br>
+                    <label>Product image:</label><br>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" disabled>
+                        <label class="custom-file-label" for="image">Choose file</label>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <label for="price">Product Price:</label><br>
@@ -71,8 +76,10 @@ function getAPIProduct() {
         url: 'http://localhost/anterin-sayur/api/product/read/' + productId,
         success: function (data) {
             const productData = data.data;
+            console.log(productData);
             $('#id').val(productData.id);
             $('#name').val(productData.name);
+            $('#image').val(productData.image);
             $('#price').val(productData.price);
             $('#quantity').val(productData.quantity);
             $('#discountPrice').val(productData.discountPrice);

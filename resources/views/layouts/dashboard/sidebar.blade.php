@@ -8,14 +8,6 @@
 
     <hr class="sidebar-divider my-0">
 
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-        </a>
-    </li>
-    <hr class="sidebar-divider">
-
     <div class="sidebar-heading">
         Main Menu
     </div>
@@ -30,6 +22,12 @@
         <a class="nav-link" href="{{url('dashboard/order')}}">
             <i class="fas fa-fw fa-file"></i>
             <span>Order</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('dashboard/banner')}}">
+            <i class="fas fa-fw fa-clone"></i>
+            <span>Banner</span>
         </a>
     </li>
 </ul>

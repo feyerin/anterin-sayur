@@ -17,6 +17,11 @@ class DashboardController extends Controller
         return view('app.order.index');
     }
 
+    public function indexBanner()
+    {
+        return view('app.banner.index');
+    }
+
     public function addProduct()
     {
         return view('app.product.add');
@@ -25,5 +30,15 @@ class DashboardController extends Controller
     public function readProduct()
     {
         return view('app.product.detail');
+    }
+
+    public function addBanner()
+    {
+        return view('app.banner.add');
+    }
+
+    public function readBanner()
+    {
+        return view('app.banner.detail');
     }
 }
