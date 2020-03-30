@@ -43,8 +43,13 @@ class OrderController extends Controller
             $product = Product::find($row['productId']);
 
             $result = $row;
-            $result['productName'] = $product->name;
-            $result['productImage'] = $product->image;
+            if(!empty($product)) {
+                $result['productName'] = $product->name;
+                $result['productImage'] = $product->image;
+            } else {
+                $result['productName'] = '';
+                $result['productImage'] = '';
+            }
 
             return $result;
         }, $orderProductArray);
@@ -72,6 +77,9 @@ class OrderController extends Controller
         // $userId = Auth::id();
 
         $order['order'] = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
+        if (empty($order)) {
+            return $this->throwError(404);
+        }
         $orderProduct = OrderProduct::where('orderId', $order['order']->id)->get();
         $orderProductArray = $orderProduct->toArray();
 
@@ -79,8 +87,13 @@ class OrderController extends Controller
             $product = Product::find($row['productId']);
 
             $result = $row;
-            $result['productName'] = $product->name;
-            $result['productImage'] = $product->image;
+            if(!empty($product)) {
+                $result['productName'] = $product->name;
+                $result['productImage'] = $product->image;
+            } else {
+                $result['productName'] = '';
+                $result['productImage'] = '';
+            }
 
             return $result;
         }, $orderProductArray);
