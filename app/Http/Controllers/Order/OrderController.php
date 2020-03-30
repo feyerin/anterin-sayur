@@ -161,8 +161,9 @@ class OrderController extends Controller
 
         $checkout = Order::checkout($userId);
 
-        return $this->getResponse($checkout, [
-            'userId' => $userId
+        return $this->getResponse($checkout['status'], [
+            'userId' => $userId,
+            'orderId' => $checkout['orderId']
         ]);
     }
 

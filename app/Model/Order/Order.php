@@ -62,8 +62,10 @@ class Order extends Model
             $order->status = self::STATUS_CHECKOUT;
             $order->save();
         }
+        $result['status'] = $saveToCheckout;
+        $result['orderId'] = $order->id;
 
-        return $saveToCheckout;
+        return $result;
     }
 
     public function checkCheckout()
