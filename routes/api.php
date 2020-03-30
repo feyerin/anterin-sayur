@@ -26,7 +26,7 @@ Route::post('/product/create', 'Product\ProductController@create');
 
 Route::post('/product/update', 'Product\ProductController@update');
 
-Route::delete('/product/delete', 'Product\ProductController@delete');
+Route::post('/product/delete', 'Product\ProductController@delete');
 
 //-------------------------------------------------------------------------------
 
@@ -51,3 +51,15 @@ Route::get('/order/checkout', 'Order\OrderController@checkout');
 Route::post('/order/set-user-data', 'Order\OrderController@setUserData');
 
 Route::post('/order/set-paid-order', 'Order\OrderController@setPaidOrder');
+
+//-------------------------------------------------------------------------------
+
+Route::get('/banner', 'Banner\BannerController@index');
+
+Route::get('/banner/read/{id}', 'Banner\BannerController@read');
+
+Route::post('/banner/create', 'Banner\BannerController@create');
+
+Route::post('/banner/update', 'Banner\BannerController@update');
+
+Route::post('/banner/delete', 'Banner\BannerController@delete');
