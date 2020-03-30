@@ -39,11 +39,6 @@
                     <input type="text" id="name" name="name" class="form-control" disabled><br>
                     <label for="quantity">Product stock:</label><br>
                     <input type="text" id="quantity" name="quantity" class="form-control" disabled><br>
-                    <label>Product image:</label><br>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="image" disabled>
-                        <label class="custom-file-label" for="image">Choose file</label>
-                    </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <label for="price">Product Price:</label><br>
@@ -79,7 +74,6 @@ function getAPIProduct() {
             console.log(productData);
             $('#id').val(productData.id);
             $('#name').val(productData.name);
-            $('#image').val(productData.image);
             $('#price').val(productData.price);
             $('#quantity').val(productData.quantity);
             $('#discountPrice').val(productData.discountPrice);
@@ -116,28 +110,27 @@ function calc() {
     });
 
     $('#save-product').on('click', function() {
-        const id = $('#id');
-        const name = $('#name');
-        const quantity = $('#quantity');
-        const price = $('#price');
-        const discountPrice = $('#discountPrice');
-        const totalDiscount = $('#totalDiscount');
+        const id = $('#id').val();
+        const name = $('#name').val();
+        const quantity = $('#quantity').val();
+        const price = $('#price').val();
+        const discountPrice = $('#discountPrice').val();
+        const totalDiscount = $('#totalDiscount').val();
 
-        let addedProduct = {
-            productId: id.val(),
-            name: name.val(),
-            quantity: quantity.val(),
-            price: price.val(),
-            discountPrice: discountPrice.val(),
-            totalDiscount: totalDiscount.val(),
-        }
-
-        // console.log(addedProduct);
+        var addedProduct = new FormData();
+        addedProduct.append('productId',id);
+        addedProduct.append('name',name);
+        addedProduct.append('quantity',quantity);
+        addedProduct.append('price',price);
+        addedProduct.append('discountPrice',discountPrice);
+        addedProduct.append('totalDiscount',totalDiscount);
 
         $.ajax({
             type: 'POST',
             url: 'http://localhost/anterin-sayur/api/product/update',
             data: addedProduct,
+            contentType: false,
+            processData: false,
             success: function (data) {
                 location.reload();
             },

@@ -25,3 +25,7 @@
         </div>
     </div>
 </section>
+
+<script>
+console.log("Banner layouts");
+</script>

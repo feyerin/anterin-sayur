@@ -67,7 +67,6 @@ function getAPIProduct() {
                 $('#product-discount-price').html(formattedTotalDiscount);
             }
 
-            console.log(productData)
             $('#product-id').html(productData.id);
             $('#product-name').html(productData.name);
             $('#product-price').html(formattedPrice);
@@ -107,13 +106,7 @@ $('#add-to-cart').on('click', function() {
     var addedProduct = new FormData();
     addedProduct.append('productId',id);
     addedProduct.append('quantity',quantity);
-    // let addedProduct = {
-    //     productId: id,
-    //     quantity: quantity,
-    // }
     
-    console.log(addedProduct);
-
     $.ajax({
         type: 'POST',
         url: 'http://localhost/anterin-sayur/api/order/add-to-cart',
