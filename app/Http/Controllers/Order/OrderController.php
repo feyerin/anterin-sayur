@@ -8,6 +8,7 @@ use App\Model\Order\Order;
 use App\Model\OrderProduct\OrderProduct;
 use App\Model\Product\Product;
 use Illuminate\Support\Facades\Auth;
+use App\Mailer;
 
 class OrderController extends Controller
 {
@@ -183,12 +184,17 @@ class OrderController extends Controller
 
         $order->save();
 
+        $user = User::find($order->userId);
+
+        $mail = Mailer::sendEmail($order, $user->email);
+
         return $this->getResponse($order, [
             'userId' => $userId,
             'name' => $request->input('name'),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'orderId' => $request->input('orderId'),
+            'mail' => $mail
         ]);
     }
 
@@ -207,10 +213,6 @@ class OrderController extends Controller
     }
 
     public function checkSession(Request $request) {
-        if (Auth::check()) {
-            return $this->getResponse(Auth::user());
-            // The user is logged in...
-        }
-        return $this->getResponse(Auth::user());
+        return $this->getResponse(Mailer::sendEmail());
     }
 }
