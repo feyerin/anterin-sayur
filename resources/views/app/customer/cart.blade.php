@@ -113,9 +113,7 @@ function displayCart(data) {
                             <h3>` + productName + `</h3>
                         </td>
                         <td class="quantity">
-                            <div class="input-group mb-3">
-                                <input type="text" name="quantity" class="quantity form-control input-number" value="` + productQuantity + `" min="1" max="100">
-                            </div>
+                            <span>` + productQuantity + `</span>
                         </td>
                         <td class="price">` + formattedPrice + `</td>
                         <td class="price">` + formattedTotalDiscountPrice + `</td>

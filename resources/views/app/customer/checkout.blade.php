@@ -86,8 +86,8 @@ function getAPICart() {
             const totalPayment = formatter.format(cartData.totalPayment);
 
             $('#totalPrice').html(totalPrice);
-            $('#totalPayment').html(totalDiscount);
-            $('#totalDiscount').html(totalPayment);
+            $('#totalDiscount').html(totalDiscount);
+            $('#totalPayment').html(totalPayment);
         },
         timeout: 300000,
         error: function (e) {
