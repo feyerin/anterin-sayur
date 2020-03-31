@@ -38,20 +38,20 @@
                         <h3 class="billing-heading mb-4">Cart Total</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span>$20.60</span>
+                            <span id="totalPrice"></span>
                         </p>
                         <p class="d-flex">
                             <span>Delivery</span>
-                            <span>$0.00</span>
+                            <span>Free</span>
                         </p>
                         <p class="d-flex">
                             <span>Discount</span>
-                            <span>$3.00</span>
+                            <span id="totalDiscount"></span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>$17.60</span>
+                            <span id="totalPayment"></span>
                         </p>
                     </div>
                 </div>
@@ -64,9 +64,37 @@
 
 @section('scripts')
 <script>
-// $( document ).ready(function() {
-//     getAPICart();
-// });
+$( document ).ready(function() {
+    getAPICart();
+});
+
+function getAPICart() {
+    const url = window.location.href;
+    const urlParams = url.split("/");
+    const orderId = urlParams[6];
+    const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost/anterin-sayur/api/order/read/'+orderId,
+        beforeSend: function () {},
+        success: function (data) {
+            const cartData = data.data.order;
+            console.log(cartData);
+            const totalPrice = formatter.format(cartData.totalPrice);
+            const totalDiscount = formatter.format(cartData.totalDiscount);
+            const totalPayment = formatter.format(cartData.totalPayment);
+
+            $('#totalPrice').html(totalPrice);
+            $('#totalPayment').html(totalDiscount);
+            $('#totalDiscount').html(totalPayment);
+        },
+        timeout: 300000,
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
 
 function setUserData() {
     const url = window.location.href;
@@ -90,8 +118,7 @@ function setUserData() {
         contentType: false,
         processData: false,
         success: function (data) {
-            // displayCart(data);
-            console.log(data);
+            window.location.href="http://localhost/anterin-sayur/web/confirmation";
         },
         timeout: 300000,
         error: function (e) {

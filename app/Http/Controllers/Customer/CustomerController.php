@@ -26,4 +26,9 @@ class CustomerController extends Controller
     {
         return view("app.customer.checkout");
     }
+
+    public function confirmation()
+    {
+        return view("app.customer.confirmation");
+    }
 }

@@ -62,6 +62,7 @@ function getAPICart() {
         beforeSend: function () {},
         success: function (data) {
             displayCart(data);
+            console.log(data.data.orderProduct);
         },
         timeout: 300000,
         error: function (e) {
@@ -100,7 +101,7 @@ function displayCart(data) {
         formattedPrice = formatter.format(totalPrice);
         formattedTotalDiscount = formatter.format(totalDiscount);
         formattedTotalDiscountPrice = formatter.format(totalDiscountPrice);
-        tempPrice = parseInt(totalDiscountPrice);
+        tempPrice = parseInt(totalDiscount);
 
         subTotal = subTotal + tempPrice;
 
@@ -117,8 +118,8 @@ function displayCart(data) {
                             </div>
                         </td>
                         <td class="price">` + formattedPrice + `</td>
-                        <td class="price">` + formattedTotalDiscount + `</td>
-                        <td class="total">` + formattedTotalDiscountPrice + `</td>
+                        <td class="price">` + formattedTotalDiscountPrice + `</td>
+                        <td class="total">` + formattedTotalDiscount + `</td>
                     </tr><!-- END TR-->
                 `;
                 

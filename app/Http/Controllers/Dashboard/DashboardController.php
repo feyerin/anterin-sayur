@@ -3,47 +3,96 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
+    public function checkRole()
+    {
+        $user = Auth::user();
+        $userRole = $user->role;
+        
+        return $userRole;
+    }
+
     public function indexProduct()
     {
-        return view('app.product.index');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.product.index');
+        } else {
+            return ("You shall not pass");
+        }
     }
 
     public function indexOrder()
     {
-        return view('app.order.index');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.order.index');
+        } else {
+            return ("You shall not pass");
+        }
     }
 
     public function indexBanner()
     {
-        return view('app.banner.index');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.banner.index');
+        } else {
+            return ("You shall not pass");
+        }
     }
 
     public function addProduct()
     {
-        return view('app.product.add');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.product.add');
+        } else {
+            return ("You shall not pass");
+        }
     }
 
     public function readProduct()
     {
-        return view('app.product.detail');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.product.detail');
+        } else {
+            return ("You shall not pass");
+        }
     }
 
     public function readOrder()
     {
-        return view('app.order.detail');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.order.detail');
+        } else {
+            return ("You shall not pass");
+        }
     }
 
     public function addBanner()
     {
-        return view('app.banner.add');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.banner.add');
+        } else {
+            return ("You shall not pass");
+        }
     }
 
     public function readBanner()
     {
-        return view('app.banner.detail');
+        $role = $this->checkRole();
+        if($role == 1) {
+            return view('app.banner.detail');
+        } else {
+            return ("You shall not pass");
+        }
     }
 }

@@ -28,6 +28,7 @@
                             <th>Total Price</th>
                             <th>Total Discount</th>
                             <th>Total Payment</th>
+                            <th>Payment Date</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -38,6 +39,7 @@
                             <th>Total Price</th>
                             <th>Total Discount</th>
                             <th>Total Payment</th>
+                            <th>Payment Date</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -90,7 +92,8 @@ function tableOrder() {
             { "data": "name" },
             { "data": "totalPrice", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' ) },
             { "data": "totalDiscount", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' )  },
-            { "data": "totalPayment", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' )  }
+            { "data": "totalPayment", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' )  },
+            { "data": "paymentDate" }
         ],
     });
 }

@@ -114,7 +114,7 @@ $('#add-to-cart').on('click', function() {
         contentType: false,
         processData: false,
         success: function (data) {
-            alert("Success");
+            // alert("Success");
             // window.location.href="dashboard";
         },
         timeout: 300000,
