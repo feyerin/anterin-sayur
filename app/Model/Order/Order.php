@@ -52,8 +52,8 @@ class Order extends Model
         {
             $this->totalQuantity = $this->totalQuantity + $orderProduct->quantity;
             $this->totalPrice = $this->totalPrice + $orderProduct->totalPrice;
-            $this->totalPayment = $this->totalPayment + $orderProduct->totalDiscountPrice;
-            $this->totalDiscount = $this->totalDiscount + $orderProduct->totalDiscount;    
+            $this->totalPayment = $this->totalPayment + $orderProduct->totalDiscount;
+            $this->totalDiscount = $this->totalDiscount + $orderProduct->totalDiscountPrice;
         }
 
         $this->save();
