@@ -86,6 +86,14 @@ class Order extends Model
             }  
         }
 
+        foreach($orderProducts as $orderProduct) {
+            $product = Product::find($orderProduct->productId);
+
+            $product->quantity = $product->quantity - $this->quantity;
+
+            $product->save();
+        }
+
         return true;
     }
 }
