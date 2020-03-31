@@ -188,7 +188,7 @@ class OrderController extends Controller
         $mail = Mailer::sendEmail($order, $user->email);
 
         return $this->getResponse('tes', [
-            'userId' => $userId,
+            'userMail' => $user->email,
             'name' => $request->input('name'),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),

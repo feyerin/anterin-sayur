@@ -25,9 +25,9 @@ class Mailer extends Model
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom(env('MAIL_FROM_ADDRESS'), 'Mailer');
-        $mail->addAddress($mail, 'Optional name');	// Add a recipient, Name is optional
-        $mail->addReplyTo(env('MAIL_FROM_ADDRESS'), 'Mailer');
+        $mail->setFrom(env('MAIL_USERNAME'), 'Mailer');
+        $mail->addAddress($email, 'Optional name');	// Add a recipient, Name is optional
+        $mail->addReplyTo(env('MAIL_USERNAME'), 'Mailer');
         // $mail->addCC('his-her-email@gmail.com');
         // $mail->addBCC('his-her-email@gmail.com');
 
