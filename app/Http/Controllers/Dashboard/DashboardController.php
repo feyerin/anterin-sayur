@@ -32,6 +32,11 @@ class DashboardController extends Controller
         return view('app.product.detail');
     }
 
+    public function readOrder()
+    {
+        return view('app.order.detail');
+    }
+
     public function addBanner()
     {
         return view('app.banner.add');

@@ -51,6 +51,8 @@ Route::group(['middleware'=>'auth'], function(){
     
     Route::get('/product/add', 'Dashboard\DashboardController@addProduct');
     Route::get('/product/detail/{id}', 'Dashboard\DashboardController@readProduct');
+    
+    Route::get('/order/detail/{id}', 'Dashboard\DashboardController@readOrder');
 
     Route::get('/banner/add', 'Dashboard\DashboardController@addBanner');
     Route::get('/banner/detail/{id}', 'Dashboard\DashboardController@readBanner');

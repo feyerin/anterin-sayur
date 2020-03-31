@@ -69,11 +69,16 @@
 // });
 
 function setUserData() {
+    const url = window.location.href;
+    const urlParams = url.split("/");
+    const orderId = urlParams[6];
+    
     const name = $('#name').val();
     const phone = $('#phone').val();
     const address = $('#address').val();
 
     var userData = new FormData();
+    userData.append('id', orderId);
     userData.append('name', name);
     userData.append('phone', phone);
     userData.append('address', address);

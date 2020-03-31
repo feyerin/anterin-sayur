@@ -62,17 +62,6 @@ $( document ).ready(function() {
 });
 
 function tableOrder() {
-    // $.ajax({
-    //     type: 'GET',
-    //     url: 'http://localhost/anterin-sayur/api/order',
-    //     success: function (data) {
-    //         console.log(data);
-    //     },
-    //     timeout: 300000,
-    //     error: function (e) {
-    //         console.log(e);
-    //     }
-    // });
 
     var table = $('#table-order').DataTable({
         "dom": 'Bfrtip',
