@@ -36,7 +36,7 @@ class OrderController extends Controller
         $orderProduct = OrderProduct::where('orderId', $id)->get();
         $orderProductArray = $orderProduct->toArray();
 
-        if (empty($order['order']) || $order['order'] == nul) {
+        if (empty($order['order']) || $order['order'] == null) {
             return $this->throwError(404);
         }
 
@@ -185,9 +185,7 @@ class OrderController extends Controller
 
         $order->save();
 
-        $userMail = User::find($order->userId);
-
-        $mail = Mailer::sendEmail($order, $userMail->email);
+        $mail = Mailer::sendEmail($order, $user->email);
 
         return $this->getResponse($order, [
             'userId' => $userId,
