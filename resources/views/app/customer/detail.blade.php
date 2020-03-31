@@ -32,7 +32,7 @@
                     </span>
                 </div>
             </div>
-            <p><a class="btn btn-black py-3 px-5" id="add-to-cart">Add to Cart</a></p>
+            <p><a href="{{url('web/cart')}}" class="btn btn-black py-3 px-5" id="add-to-cart">Add to Cart</a></p>
         </div>
     </div>
 </div>
@@ -106,7 +106,7 @@ $('#add-to-cart').on('click', function() {
     var addedProduct = new FormData();
     addedProduct.append('productId',id);
     addedProduct.append('quantity',quantity);
-    
+
     $.ajax({
         type: 'POST',
         url: 'http://localhost/anterin-sayur/api/order/add-to-cart',

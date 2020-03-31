@@ -16,4 +16,14 @@ class CustomerController extends Controller
     {
         return view("app.customer.detail");
     }
+
+    public function cart()
+    {
+        return view("app.customer.cart");
+    }
+
+    public function checkout()
+    {
+        return view("app.customer.checkout");
+    }
 }
