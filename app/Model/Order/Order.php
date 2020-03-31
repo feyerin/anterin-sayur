@@ -81,7 +81,7 @@ class Order extends Model
         foreach($orderProducts as $orderProduct) {
             $product = Product::find($orderProduct->productId);
 
-            if(empty($product) || $this->quantity > $product->quantity) {
+            if(empty($product) || $orderProduct->quantity > $product->quantity) {
                 return false;
             }  
         }
@@ -89,7 +89,7 @@ class Order extends Model
         foreach($orderProducts as $orderProduct) {
             $product = Product::find($orderProduct->productId);
 
-            $product->quantity = $product->quantity - $this->quantity;
+            $product->quantity -= $orderProduct->quantity;
 
             $product->save();
         }
