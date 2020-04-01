@@ -19,11 +19,18 @@ class OrderController extends Controller
         return $this->getResponse($orders);
     }
 
-    public function getOrderByUser()
+    public function getOrderByUser(Request $request)
     {
         $user = Auth::user();
-        $userId = $user->id;
-        // $userId = Auth::id();
+        if(!empty($user)) {
+            $userId = $user->id;
+        } else {
+            $userId = $request->session()->get('tempUserId');
+            if(empty($userId)) {
+                $userId = -(strtotime(date('d-m-Y H:i:s')));
+                $request->session()->put('tempUserId', $userId);
+            }
+        }
 
         $orders = Order::where('userId', $userId)->get();
         
@@ -71,11 +78,18 @@ class OrderController extends Controller
         ]);
     }
 
-    public function getCart()
+    public function getCart(Request $request)
     {
         $user = Auth::user();
-        $userId = $user->id;
-        // $userId = Auth::id();
+        if(!empty($user)) {
+            $userId = $user->id;
+        } else {
+            $userId = $request->session()->get('tempUserId');
+            if(empty($userId)) {
+                $userId = -(strtotime(date('d-m-Y H:i:s')));
+                $request->session()->put('tempUserId', $userId);
+            }
+        }
 
         $order['order'] = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
         if (empty($order['order']) || $order['order'] == null) {
@@ -107,8 +121,15 @@ class OrderController extends Controller
     public function addToCart(Request $request)
     {
         $user = Auth::user();
-        $userId = $user->id;
-        // $userId = Auth::id();
+        if(!empty($user)) {
+            $userId = $user->id;
+        } else {
+            $userId = $request->session()->get('tempUserId');
+            if(empty($userId)) {
+                $userId = -(strtotime(date('d-m-Y H:i:s')));
+                $request->session()->put('tempUserId', $userId);
+            }
+        }
 
         $orderProductId = null;
         $order = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
@@ -142,8 +163,15 @@ class OrderController extends Controller
     public function updateCart(Request $request)
     {
         $user = Auth::user();
-        $userId = $user->id;
-        // $userId = Auth::id();
+        if(!empty($user)) {
+            $userId = $user->id;
+        } else {
+            $userId = $request->session()->get('tempUserId');
+            if(empty($userId)) {
+                $userId = -(strtotime(date('d-m-Y H:i:s')));
+                $request->session()->put('tempUserId', $userId);
+            }
+        }
 
         $order = Order::where('userId', $userId)->where('status', Order::STATUS_CART)->first();
 
@@ -156,11 +184,18 @@ class OrderController extends Controller
         ]);
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
         $user = Auth::user();
-        $userId = $user->id;
-        // $userId = Auth::id();
+        if(!empty($user)) {
+            $userId = $user->id;
+        } else {
+            $userId = $request->session()->get('tempUserId');
+            if(empty($userId)) {
+                $userId = -(strtotime(date('d-m-Y H:i:s')));
+                $request->session()->put('tempUserId', $userId);
+            }
+        }
 
         $checkout = Order::checkout($userId);
 
@@ -173,19 +208,27 @@ class OrderController extends Controller
     public function setUserData(Request $request)
     {
         $user = Auth::user();
-        $userId = $user->id;
-        // $userId = Auth::id();
+        if(!empty($user)) {
+            $userId = $user->id;
+        } else {
+            $userId = $request->session()->get('tempUserId');
+            if(empty($userId)) {
+                $userId = -(strtotime(date('d-m-Y H:i:s')));
+                $request->session()->put('tempUserId', $userId);
+            }
+        }
 
         $order = Order::where('userId', $userId)->where('id', $request->input('orderId'))->first();
         
         $order->name = $request->input('name');
         $order->address = $request->input('address');
         $order->phone = $request->input('phone');
+        $order->email = $request->input('email');
         $order->status = Order::STATUS_PENDING;
 
         $order->save();
 
-        $mail = Mailer::sendEmail($order, $user->email);
+        $mail = Mailer::sendEmail($order, $order->email);
 
         return $this->getResponse('tes', [
             'userMail' => $user->email,
