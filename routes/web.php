@@ -39,12 +39,12 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/', 'Customer\CustomerController@indexCustomer');
     Route::get('/web/product/detail/{id}', 'Customer\CustomerController@readProduct');
     Route::get('/web/cart', 'Customer\CustomerController@cart');
     Route::get('/web/checkout/{id}', 'Customer\CustomerController@checkout');
     Route::get('/web/confirmation', 'Customer\CustomerController@confirmation');
 
+    Route::get('/', 'Dashboard\DashboardController@indexProduct');
     Route::get('/dashboard/product', 'Dashboard\DashboardController@indexProduct');
     Route::get('/dashboard/order', 'Dashboard\DashboardController@indexOrder');
     Route::get('/dashboard/banner', 'Dashboard\DashboardController@indexBanner');
