@@ -86,13 +86,13 @@
 
         $.ajax({
             type: 'POST',
-            url: 'http://localhost/anterin-sayur/api/product/create',
+            url: "{{url('api/product/create')}}",
             data: addedProduct,
             contentType: false,
             processData: false,
             success: function (data) {
                 // alert("Success");
-                window.location.href="http://localhost/anterin-sayur/dashboard/product";
+                window.location.href="{{url('dashboard/product')}}";
             },
             timeout: 300000,
             error: function (e) {

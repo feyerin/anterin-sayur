@@ -68,7 +68,7 @@ function getAPIProduct() {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost/anterin-sayur/api/product/read/' + productId,
+        url: "{{url('api/product/read')}}/" + productId,
         success: function (data) {
             const productData = data.data;
             console.log(productData);
@@ -127,7 +127,7 @@ function calc() {
 
         $.ajax({
             type: 'POST',
-            url: 'http://localhost/anterin-sayur/api/product/update',
+            url: "{{url('api/product/update')}}",
             data: addedProduct,
             contentType: false,
             processData: false,

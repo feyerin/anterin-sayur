@@ -93,7 +93,7 @@ function tableProduct() {
             style: 'single'
         },
         "ajax": {
-            "url": 'http://localhost/anterin-sayur/api/product',
+            "url": "{{url('api/product')}}",
             "type": 'GET'
         },
         "columns": [
@@ -115,7 +115,7 @@ function deleteProduct(data) {
     $.ajax({
         type: 'POST',
         data: deletedProduct,
-        url: 'http://localhost/anterin-sayur/api/product/delete',
+        url: "{{url('api/product/delete')}}",
         success: function (data) {
             location.reload();
         },
