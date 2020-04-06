@@ -15,7 +15,17 @@ class BannerController extends Controller
     {
         $banners = Banner::orderBy('id')->get();
 
-        return $this->getResponse($banners);
+        $bannerArray = $banners->toArray();
+
+        $result = array_map(function ($row) {
+            $mapResult = $row;
+            $mapResult['imageurl'] = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $row['image'];
+
+            return $mapResult;
+        }, $bannerArray);
+
+
+        return $this->getResponse($result);
     }
 
     public function read($id)
@@ -26,7 +36,10 @@ class BannerController extends Controller
             return $this->throwError(404);
         }
 
-        return $this->getResponse($banner);
+        $result = $banner->toArray();
+        $result['imageUrl'] = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $banner['image'];
+
+        return $this->getResponse($result);
     }
 
     public function create(Request $request)
