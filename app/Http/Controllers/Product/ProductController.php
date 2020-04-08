@@ -19,7 +19,7 @@ class ProductController extends Controller
 
         $result = array_map(function ($row) {
             $mapResult = $row;
-            $mapResult['imageurl'] = 'https://s3.' . env('AWS_S3_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $row['image'];
+            $mapResult['imageurl'] = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $row['image'];
 
             return $mapResult;
         }, $productArray);
@@ -37,7 +37,7 @@ class ProductController extends Controller
         }
 
         $result = $product->toArray();
-        $result['imageUrl'] = 'https://s3.' . env('AWS_S3_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $product['image'];
+        $result['imageUrl'] = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $product['image'];
 
         // return Response::make($product, 200);
         return $this->getResponse($result);

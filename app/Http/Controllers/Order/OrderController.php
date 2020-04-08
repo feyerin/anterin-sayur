@@ -54,7 +54,7 @@ class OrderController extends Controller
             if(!empty($product)) {
                 $result['productName'] = $product->name;
                 $result['productImage'] = $product->image;
-                $result['productUrl'] = 'https://s3.' . env('AWS_S3_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $product->image;
+                $result['productUrl'] = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $product['images'];
             } else {
                 $result['productName'] = '';
                 $result['productImage'] = '';
@@ -107,7 +107,7 @@ class OrderController extends Controller
             if(!empty($product)) {
                 $result['productName'] = $product->name;
                 $result['productImage'] = $product->image;
-                $result['productUrl'] = 'https://s3.' . env('AWS_S3_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $product->image;
+                $result['productUrl'] = 'https://s3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/' . env('AWS_BUCKET') . '/' . $product['images'];
             } else {
                 $result['productName'] = '';
                 $result['productImage'] = '';
