@@ -62,7 +62,7 @@ function getAPIBanner() {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost/anterin-sayur/api/banner/read/' + bannerId,
+        url: "{{url('api/banner/read')}}/" + bannerId,
         success: function (data) {
             const bannerData = data.data;
             $('#id').val(bannerData.id);
@@ -97,17 +97,17 @@ function getAPIBanner() {
 
         var addedFile = new FormData();
         addedFile.append('bannerId',id);
-        addedFile.append('image',image);
+        addedFile.append('imageurl',image);
 
         $.ajax({
             type: 'POST',
-            url: 'http://localhost/anterin-sayur/api/banner/update',
+            url: "{{url('api/banner/update')}}",
             data: addedFile,
             contentType: false,
             processData: false,
             success: function (data) {
                 // alert("Success");
-                window.location.href="http://localhost/anterin-sayur/dashboard/banner";
+                window.location.href="{{url('dashboard/banner')}}";
             },
             timeout: 300000,
             error: function (e) {

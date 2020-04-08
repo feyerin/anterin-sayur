@@ -51,7 +51,7 @@
         const image = $('#image')[0].files[0];
 
         var addedFile = new FormData();
-        addedFile.append('image',image);
+        addedFile.append('imageurl',image);
 
         // let addedProduct = {
         //     name: name.val(),

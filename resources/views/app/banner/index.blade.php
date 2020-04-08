@@ -84,12 +84,12 @@ function tableBanner() {
             style: 'single'
         },
         "ajax": {
-            "url": 'http://localhost/anterin-sayur/api/banner',
+            "url": "{{url('api/banner')}}",
             "type": 'GET'
         },
         "columns": [
             { "data": "id" },
-            { "data": "image" }
+            { "data": "imageurl" }
         ],
     });
 }
@@ -102,7 +102,7 @@ function deleteBanner(data) {
     $.ajax({
         type: 'POST',
         data: deletedBanner,
-        url: 'http://localhost/anterin-sayur/api/banner/delete',
+        url: "{{url('api/banner/delete')}}",
         success: function (data) {
             location.reload();
         },

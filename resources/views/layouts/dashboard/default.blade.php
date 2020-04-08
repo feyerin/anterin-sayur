@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{asset('public/templates/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('public/templates/css/sb-admin-2.min.css')}}" rel="stylesheet" type="text/css">
+    <link rel='icon' href='{{url('public/images/logo/favicon.ico')}}' type='image/x-icon'>
     <title>@yield('title')</title>
     @yield('styles')
 </head>

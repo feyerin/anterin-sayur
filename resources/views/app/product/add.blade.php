@@ -70,7 +70,7 @@
         var addedProduct = new FormData();
         addedProduct.append('name',name);
         addedProduct.append('quantity',quantity);
-        addedProduct.append('image',image);
+        addedProduct.append('imageurl',image);
         addedProduct.append('price',price);
         addedProduct.append('discountPrice',discountPrice);
         addedProduct.append('totalDiscount',totalDiscount);
