@@ -64,13 +64,13 @@
 
         $.ajax({
             type: 'POST',
-            url: 'http://localhost/anterin-sayur/api/banner/create',
+            url: "{{url('api/banner/create')}}",
             data: addedFile,
             contentType: false,
             processData: false,
             success: function (data) {
                 // alert("Success");
-                window.location.href="http://localhost/anterin-sayur/dashboard/banner";
+                window.location.href="{{url('dashboard/banner')}}";
             },
             timeout: 300000,
             error: function (e) {

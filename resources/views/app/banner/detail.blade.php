@@ -58,7 +58,7 @@ $( document ).ready(function() {
 function getAPIBanner() {
     const url = window.location.href;
     const urlParams = url.split("/");
-    const bannerId = urlParams[6];
+    const bannerId = urlParams[urlParams.length - 1];
 
     $.ajax({
         type: 'GET',

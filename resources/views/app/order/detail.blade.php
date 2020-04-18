@@ -65,7 +65,7 @@ function getAPIOrder() {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost/anterin-sayur/api/order/read/' + orderId,
+        url: "{{url('api/order/read')}}/" + orderId,
         success: function (data) {
             const orderData = data.data.order;
             const paymentDate = data.data.order.paymentDate;
@@ -96,7 +96,7 @@ function setPaid() {
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost/anterin-sayur/api/order/set-paid-order',
+        url: "{{url('api/order/set-paid-order')}}",
         data: orderData,
         contentType: false,
         processData: false,

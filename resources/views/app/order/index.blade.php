@@ -83,7 +83,7 @@ function tableOrder() {
             style: 'single'
         },
         "ajax": {
-            "url": 'http://localhost/anterin-sayur/api/order',
+            "url": "{{url('api/order')}}",
             "type": 'GET'
         },
         "columns": [
@@ -95,25 +95,6 @@ function tableOrder() {
             { "data": "totalPayment", render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' )  },
             { "data": "paymentDate" }
         ],
-    });
-}
-
-function deleteProduct(data) {
-    let deletedProduct = {
-        productId: data,
-    }
-
-    $.ajax({
-        type: 'POST',
-        data: deletedProduct,
-        url: 'http://localhost/anterin-sayur/api/product/delete',
-        success: function (data) {
-            location.reload();
-        },
-        timeout: 300000,
-        error: function (e) {
-            console.log(e);
-        }
     });
 }
 </script>
