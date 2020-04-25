@@ -64,7 +64,7 @@ $( document ).ready(function() {
 function getAPIProduct() {
     const url = window.location.href;
     const urlParams = url.split("/");
-    const productId = urlParams[6];
+    const productId = urlParams[urlParams.length - 1];
 
     $.ajax({
         type: 'GET',

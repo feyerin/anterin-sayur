@@ -59,7 +59,7 @@ $( document ).ready(function() {
 function getAPIOrder() {
     const url = window.location.href;
     const urlParams = url.split("/");
-    const orderId = urlParams[6];
+    const orderId = urlParams[urlParams.length - 1];
 
     console.log(orderId);
 
